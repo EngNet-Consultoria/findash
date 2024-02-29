@@ -122,9 +122,11 @@ const urlDataString = atob(urlDataBase64);
 //printar
 console.log(urlDataString);
 
+let cash;
+
 try {
   //converter string para objeto
-  JSON.parse(urlDataString);
+  cash = JSON.parse(urlDataString);
 } catch (error) {
   alert('Erro ao carregar dados');
   //redirecionar para google.com
