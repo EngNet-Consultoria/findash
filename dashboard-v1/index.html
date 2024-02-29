@@ -129,8 +129,12 @@ try {
   cash = JSON.parse(urlDataString);
 } catch (error) {
   alert('Erro ao carregar dados');
-  //redirecionar para google.com
-  window.location.href = 'https://www.google.com';
+  cash = [ 
+    {date:'1/24',cash:0,balance:0,predictedCash:0},
+    {date:'2/24',cash:0,balance:0,predictedCash:0},
+    {date:'3/24',cash:0,balance:0,predictedCash:0},
+    {date:'4/24',cash:0,balance:0,predictedCash:0},
+  ];
 }
 
 const data = {
