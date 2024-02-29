@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <title>Início</title>
+
+        <meta charset="utf-8">
+        <!-- Melhoria da visualização em smartphones -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--Bootstrap -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js" integrity="sha512-5BqtYqlWfJemW5+v+TZUs22uigI8tXeVah5S/1Z6qBLVO7gakAOtkOzUtgq6dsIo5c0NJdmGPs0H9I+2OHUHVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css" integrity="sha512-CpIKUSyh9QX2+zSdfGP+eWLx23C8Dj9/XmHjZY2uDtfkdLGo0uY12jgcnkX9vXOgYajEKb/jiw67EYm+kBf+6g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+        <!-- Carregar Chart JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <!-- Ícones -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <link rel="stylesheet" href="./css/botao.css">
+        <link rel="stylesheet" href="./css/navbar.css">
+        <link rel="stylesheet" href="./css/home.css">
+        <link rel="stylesheet" href="./css/card.css">
+        
+    </head>
+
+<body>
+
+<nav class="navbar navbar-light bg-light barra"> <!-- Barra superior -->
+  <a class="navbar-brand" > <!--logotipo-->
+      <img style="margin-left: 1em;" src="./img/logo-navbar-otimizado.svg" height="41" alt="">
+    </a>
+
+    <ul class="nav centralizar"> <!-- Botões do meio da barra de cima -->
+      <li class="nav-item">
+        <button class="icone selecionado">
+         <i class="fa-solid fa-chart-column"></i> <!-- icone -->
+         <p>Dashboard</p>
+        </button>
+      </li>
+
+      <li class="nav-item" style="display: none;">
+        <button onclick="window.location.href='../fluxo/';" class="icone">
+         <i class="fa-solid fa-cash-register"></i>
+         <p>Fluxo</p>
+        </button>
+      </li>
+
+      <li class="nav-item" style="display: none;">
+        <button onclick="window.location.href='../custo/';" class="icone">
+         <i class="fa-solid fa-money-bill-transfer"></i>
+         <p>Custo</p>
+        </button>
+      </li>
+
+      <li class="nav-item" style="display: none;">
+        <button onclick="window.location.href='../analise/';" class="icone">
+         <i class="fa-solid fa-chart-column"></i>
+         <p>Análise</p>
+        </button>
+      </li>
+
+    </ul> <!--Fim de "Botões do meio da barra de cima" -->
+
+</nav><!-- Fim da "Barra superior" -->
+
+<div class="container home">
+  <div class="row">
+    <button class="col-sm cartao" >
+      <h6 id="fluxoDeCaixaMensalDate"></h6>
+      <h6>Fluxo de Caixa Mensal:</h6>
+      <h4 id="fluxoDeCaixaMensal" class="saldo saldoPositivo" style="margin-bottom:1em;"></h4>
+    </button>
+
+    <button class="col-sm cartao" >
+      <h6 id="fluxoDeCaixaTrimestralDate"></h6>
+      <h6>Média do fluxo de caixa mensal no trimestre:</h6>
+      <h4 id="fluxoDeCaixaTrimestral" class="saldo saldoPositivo" style="margin-bottom:1em;"></h4>
+    </button>
+
+    <button class="col-sm cartao" >
+      <h6 id="fluxoDeCaixaAnualDate"></h6>
+      <h6>Média do fluxo de caixa mensal no ano:</h6>
+      <h4 id="fluxoDeCaixaAnual" class="saldo saldoPositivo" style="margin-bottom:1em;"></h4>
+    </button>
+    
+    <button class="col-sm cartao" >
+      <h6 id="saldoMensalDate"></h6>
+      <h6>Saldo mensal:</h6>
+      <h4 id="saldoMensal" class="saldo saldoPositivo"></h4>
+    </button>
+
+    <button class="col-sm cartao" >
+      <h6 id="saldoTrimestralDate"></h6>
+      <h6>Média de saldo mensal no trimestre:</h6>
+      <h4 id="saldoTrimestral" class="saldo saldoPositivo"></h4>
+    </button>
+
+    <button class="col-sm cartao" >
+      <h6 id="saldoAnualDate"></h6>
+      <h6>Média de saldo mensal no ano:</h6>
+      <h4 id="saldoAnual"class="saldo saldoPositivo"></h4>
+    </button>
+
+  </div>
+
+  <canvas id="exemploGrafico" style="max-height:18em;"></canvas>
+
+</div>
+
+</body>
+</html>
+
+<script>
+// dados do gráfico
+
+//receber string do parametro de url data
+const urlParams = new URLSearchParams(window.location.search);
+const urlDataBase64 = urlParams.get('data');
+//converter urlDataBase64 de base64 para string
+const urlDataString = atob(urlDataBase64);
+//printar
+console.log(urlDataString);
+
+try {
+  //converter string para objeto
+  JSON.parse(urlDataString);
+} catch (error) {
+  alert('Erro ao carregar dados');
+  //redirecionar para google.com
+  window.location.href = 'https://www.google.com';
+}
+
+const data = {
+  labels: cash.map(item => item.date),
+  datasets: [
+  {
+    label: 'Saldo',
+    data: cash.map(item => item.balance),
+    borderColor: 	'#E87830',
+    borderWidth: 3
+  },
+  {
+    label: 'Fluxo de caixa contabilizado',
+    data: cash.map(item => item.cash),
+    borderColor: 	'#2768df',
+    borderWidth: 4
+  },
+  {
+    label: 'Fluxo de caixa previsto',
+    data: cash.map(item => item.predictedCash),
+    borderColor: 	'#ffd600',
+    borderWidth: 3
+  },
+]};
+// configurar
+const config = {type: 'line', data};
+// Adicionar gráfico na página
+const graficoExemlo = new Chart(
+  document.getElementById('exemploGrafico'),
+  config
+);
+
+function updateInfo(months, id,idDate, type){
+  const items = cash.slice(-months);
+  const media = items.reduce((soma, item) => soma + item[type], /*soma inicia em:*/0) / items.length;
+  document.getElementById(id).innerText = `R$: ${media.toFixed(2)}`;
+  document.getElementById(idDate).innerText = `${items[0].date} - ${items[items.length-1].date}`;
+  if(media < 0){
+    document.getElementById(id).classList.replace('saldoPositivo','saldoNegativo');
+  }
+}
+
+//atualizar o saldo médio do ultimo  mes
+updateInfo(1, 'saldoMensal', 'saldoMensalDate', 'balance');
+
+//atualizar o saldo médio dos ultimos 3 meses
+updateInfo(3, 'saldoTrimestral', 'saldoTrimestralDate', 'balance');
+
+//atualizar o saldo médio dos ultimos 12 meses
+updateInfo(12, 'saldoAnual', 'saldoAnualDate', 'balance');
+
+//atualizar o fluxo de caixa médio do ultimo  mes
+updateInfo(1, 'fluxoDeCaixaMensal', 'fluxoDeCaixaMensalDate', 'cash');
+
+//atualizar o fluxo de caixa médio dos ultimos 3 meses
+updateInfo(3, 'fluxoDeCaixaTrimestral', 'fluxoDeCaixaTrimestralDate', 'cash');
+
+//atualizar o fluxo de caixa médio dos ultimos 12 meses
+updateInfo(12, 'fluxoDeCaixaAnual', 'fluxoDeCaixaAnualDate', 'cash');
+
+</script>
+
