@@ -1,3 +1,9 @@
 button,a{
     user-select: none;
 }
+
+button.accordion-button,button.accordion-button:focus,button.accordion-button:active,button.accordion-button:not(.collapsed){
+  color: inherit;
+  background-color: inherit;
+  box-shadow: none;
+}
