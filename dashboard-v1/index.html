@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="./css/navbar.css">
         <link rel="stylesheet" href="./css/home.css">
         <link rel="stylesheet" href="./css/card.css">
+        <link rel="stylesheet" href="./css/sheet.css">
         
     </head>
 
@@ -105,6 +106,21 @@
   </div>
 
   <canvas id="exemploGrafico" style="max-height:18em;"></canvas>
+
+  <div class="accordion" id="accordion1" style="margin-top: 3em;">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Planilha
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion1">
+        <div class="accordion-body">
+          <div id="sheet"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
 
@@ -194,6 +210,49 @@ updateInfo(3, 'fluxoDeCaixaTrimestral', 'fluxoDeCaixaTrimestralDate', 'cash');
 
 //atualizar o fluxo de caixa médio dos ultimos 12 meses
 updateInfo(12, 'fluxoDeCaixaAnual', 'fluxoDeCaixaAnualDate', 'cash');
+
+(function updateSheet(){
+  // colunas da tabela: data, fluxo de caixa contabilizado, fluxo de caixa previsto, saldo
+  const sheet = document.getElementById('sheet');
+  sheet.innerHTML = '';
+  const table = document.createElement('table');
+  sheet.appendChild(table);
+  table.classList.add('table', 'table-sm', 'table-bordered', 'planilha', 'table-striped', 'table-hover');
+  const thead = document.createElement('thead');
+  table.appendChild(thead);
+  const tr = document.createElement('tr');
+  thead.appendChild(tr);
+  const th1 = document.createElement('th');
+  tr.appendChild(th1);
+  th1.innerText = 'Data';
+  const th2 = document.createElement('th');
+  tr.appendChild(th2);
+  th2.innerText = 'Fluxo de caixa contabilizado';
+  const th3 = document.createElement('th');
+  tr.appendChild(th3);
+  th3.innerText = 'Fluxo de caixa previsto';
+  const th4 = document.createElement('th');
+  tr.appendChild(th4);
+  th4.innerText = 'Saldo';
+  const tbody = document.createElement('tbody');
+  table.appendChild(tbody);
+  cash.forEach(item => {
+    const tr = document.createElement('tr');
+    tbody.appendChild(tr);
+    const td1 = document.createElement('td');
+    tr.appendChild(td1);
+    td1.innerText = item.date;
+    const td2 = document.createElement('td');
+    tr.appendChild(td2);
+    td2.innerText = item.cash;
+    const td3 = document.createElement('td');
+    tr.appendChild(td3);
+    td3.innerText = item.predictedCash;
+    const td4 = document.createElement('td');
+    tr.appendChild(td4);
+    td4.innerText = item.balance;
+  });
+})();
 
 </script>
 
