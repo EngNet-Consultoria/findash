@@ -53,8 +53,11 @@
   {"date":"03/18","cash":0.0,"balance":0.0,"predictedCash":0.0}
 ]
 </textarea>
-<button id="generateLink" style="margin-top: 0.5em;" type="button" class="btn btn-primary">
+<button id="generateLink" style="margin-top: 0.5em;" type="button" class="btn btn-success">
   <span>Gerar Link</span>
+</button>
+<button id="loadJson" style="margin-top: 0.5em;" type="button" class="btn btn-primary">
+  <span>Carregar Json</span>
 </button>
 </div>
 
@@ -67,6 +70,21 @@ document.getElementById("generateLink").onclick = function() {
   const base64 = btoa(data);
   const url = "https://engnet-consultoria.github.io/findash/dashboard-v1/index.html?data=" + base64;
   window.open(url, '_blank');
+}
+
+document.getElementById("loadJson").onclick = function() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.onchange = e => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function() {
+      const text = reader.result;
+      document.querySelector('textarea').value = text;
+    };
+    reader.readAsText(file);
+  }
+  input.click();
 }
 </script>
 
