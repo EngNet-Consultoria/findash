@@ -46,13 +46,27 @@
 </nav><!-- Fim da "Barra superior" -->
 
 <div class="container home">
+<textarea class="form-control" rows="23" cols="50">
+[
+  {"date":"01/18","cash":0.0,"balance":0.0,"predictedCash":0.0},
+  {"date":"02/18","cash":0.0,"balance":0.0,"predictedCash":0.0},
+  {"date":"03/18","cash":0.0,"balance":0.0,"predictedCash":0.0}
+]
+</textarea>
+<button id="generateLink" style="margin-top: 0.5em;" type="button" class="btn btn-primary">
+  <span>Gerar Link</span>
+</button>
 </div>
 
 </body>
 </html>
 
 <script>
-
-
+document.getElementById("generateLink").onclick = function() {
+  const data = document.querySelector('textarea').value;
+  const base64 = btoa(data);
+  const url = "https://engnet-consultoria.github.io/findash/dashboard-v1/index.html?data=" + base64;
+  window.open(url, '_blank');
+}
 </script>
 
