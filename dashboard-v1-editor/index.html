@@ -48,9 +48,9 @@
 <div class="container home">
 <textarea class="form-control" rows="23" cols="50">
 [
-  {"date":"01/18","cash":0.0,"balance":0.0,"predictedCash":0.0},
-  {"date":"02/18","cash":0.0,"balance":0.0,"predictedCash":0.0},
-  {"date":"03/18","cash":0.0,"balance":0.0,"predictedCash":0.0}
+  {"date":"01/18","cash":2.0,"balance":1.0,"predictedCash":2.0},
+  {"date":"02/18","cash":3.0,"balance":2.0,"predictedCash":3.0},
+  {"date":"03/18","cash":4.0,"balance":3.0,"predictedCash":3.0}
 ]
 </textarea>
 <button id="generateLink" style="margin-top: 0.5em;" type="button" class="btn btn-success">
@@ -58,6 +58,9 @@
 </button>
 <button id="loadJson" style="margin-top: 0.5em;" type="button" class="btn btn-primary">
   <span>Carregar Json</span>
+</button>
+<button id="downloadJson" style="margin-top: 0.5em;" type="button" class="btn btn-primary">
+  <span>Download Json</span>
 </button>
 </div>
 
@@ -85,6 +88,16 @@ document.getElementById("loadJson").onclick = function() {
     reader.readAsText(file);
   }
   input.click();
+}
+
+document.getElementById("downloadJson").onclick = function() {
+  const data = document.querySelector('textarea').value;
+  const blob = new Blob([data], {type: 'text/plain'});
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'findash.json';
+  a.click();
 }
 </script>
 
