@@ -181,25 +181,45 @@ const data = {
     label: 'Fluxo de caixa previsto',
     data: cash.map(item => item.predictedCash),
     borderColor: 	'#ffd600',
-    borderWidth: 3
+    borderWidth: 3,
+    trendlineLinear: {
+		  color: "#ffd600",
+		  lineStyle: "dotted",
+		  width: 2
+	  },
   },
   {
     label: 'Enej',
     data: cash.map(item => item.enej),
     borderColor: 	'#700299',
-    borderWidth: 3
+    borderWidth: 3,
+    trendlineLinear: {
+		  color: "#700299",
+		  lineStyle: "dotted",
+		  width: 2
+	  },
   },
   {
     label: 'Entradas',
     data: cash.map(item => item.inflows),
     borderColor: 	'#188038',
-    borderWidth: 3
+    borderWidth: 3,
+    trendlineLinear: {
+		  color: "#188038",
+		  lineStyle: "dotted",
+		  width: 2
+	  },
   },
   { 
     label: 'Saídas',
     data: cash.map(item => item.outflows),
     borderColor: 	'#d93025',
-    borderWidth: 3
+    borderWidth: 3,
+    trendlineLinear: {
+		  color: "#d93025",
+		  lineStyle: "dotted",
+		  width: 2
+	  },
   }
 ]};
 // configurar
