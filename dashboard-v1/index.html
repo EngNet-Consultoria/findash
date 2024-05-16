@@ -146,10 +146,10 @@ try {
 } catch (error) {
   alert('Erro ao carregar dados');
   cash = [ 
-    {date:'1/24',cash:0,balance:0,predictedCash:0,enej:0},
-    {date:'2/24',cash:0,balance:0,predictedCash:0,enej:0},
-    {date:'3/24',cash:0,balance:0,predictedCash:0,enej:0},
-    {date:'4/24',cash:0,balance:0,predictedCash:0,enej:0},
+    {date:'1/24',cash:0,balance:0,predictedCash:0,enej:0,inflows:0},
+    {date:'2/24',cash:0,balance:0,predictedCash:0,enej:0,inflows:0},
+    {date:'3/24',cash:0,balance:0,predictedCash:0,enej:0,inflows:0},
+    {date:'4/24',cash:0,balance:0,predictedCash:0,enej:0,inflows:0},
   ];
 }
 
@@ -180,6 +180,12 @@ const data = {
     borderColor: 	'#700299',
     borderWidth: 3
   },
+  {
+    label: 'Inflows',
+    data: cash.map(item => item.inflows),
+    borderColor: 	'#00b035',
+    borderWidth: 3
+  }
 ]};
 // configurar
 const config = {type: 'line', data};
@@ -243,6 +249,9 @@ updateInfo(12, 'fluxoDeCaixaAnual', 'fluxoDeCaixaAnualDate', 'cash');
   const th5 = document.createElement('th');
   tr.appendChild(th5);
   th5.innerText = 'Saldo';
+  const th6 = document.createElement('th');
+  tr.appendChild(th6);
+  th6.innerText = 'Entradas';
   const tbody = document.createElement('tbody');
   table.appendChild(tbody);
   cash.forEach(item => {
@@ -263,6 +272,9 @@ updateInfo(12, 'fluxoDeCaixaAnual', 'fluxoDeCaixaAnualDate', 'cash');
     const td5 = document.createElement('td');
     tr.appendChild(td5);
     td5.innerText = item.balance?item.balance:'';
+    const td6 = document.createElement('td');
+    tr.appendChild(td6);
+    td6.innerText = item.inflows?item.inflows:'';
   });
 })();
 
