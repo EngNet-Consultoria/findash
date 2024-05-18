@@ -187,10 +187,12 @@ function getDataLastMonths(data,numberOfMonths){
   return data.slice(-numberOfMonths);
 }
 
+let filteredCash = cash;
+
 if(monthsToFilter){
-  cash = getDataLastMonths(cash,monthsToFilter);
+  filteredCash = getDataLastMonths(filteredCash,monthsToFilter);
 }
-console.log(cash);
+console.log(filteredCash);
 
 async function reopenCurrentUrlUsingMonths(months){
   const urlParams = new URLSearchParams(window.location.search);
@@ -199,11 +201,11 @@ async function reopenCurrentUrlUsingMonths(months){
 }
 
 const data = {
-  labels: cash.map(item => item.date),
+  labels: filteredCash.map(item => item.date),
   datasets: [
   {
     label: 'Saldo',
-    data: cash.map(item => item.balance),
+    data: filteredCash.map(item => item.balance),
     borderColor: 	'#E87830',
     borderWidth: 3,
     trendlineLinear: {
@@ -214,13 +216,13 @@ const data = {
   },
   {
     label: 'Fluxo de caixa contabilizado',
-    data: cash.map(item => item.cash),
+    data: filteredCash.map(item => item.cash),
     borderColor: 	'#2768df',
     borderWidth: 4
   },
   {
     label: 'Fluxo de caixa previsto',
-    data: cash.map(item => item.predictedCash),
+    data: filteredCash.map(item => item.predictedCash),
     borderColor: 	'#ffd600',
     borderWidth: 3,
     trendlineLinear: {
@@ -231,7 +233,7 @@ const data = {
   },
   {
     label: 'Enej',
-    data: cash.map(item => item.enej),
+    data: filteredCash.map(item => item.enej),
     borderColor: 	'#700299',
     borderWidth: 3,
     trendlineLinear: {
@@ -242,7 +244,7 @@ const data = {
   },
   {
     label: 'Entradas',
-    data: cash.map(item => item.inflows),
+    data: filteredCash.map(item => item.inflows),
     borderColor: 	'#188038',
     borderWidth: 3,
     trendlineLinear: {
@@ -253,7 +255,7 @@ const data = {
   },
   { 
     label: 'Saídas',
-    data: cash.map(item => item.outflows),
+    data: filteredCash.map(item => item.outflows),
     borderColor: 	'#d93025',
     borderWidth: 3,
     trendlineLinear: {
@@ -336,7 +338,7 @@ updateInfo(12, 'fluxoDeCaixaAnual', 'fluxoDeCaixaAnualDate', 'cash');
   th7.innerText = 'Saídas';
   const tbody = document.createElement('tbody');
   table.appendChild(tbody);
-  cash.forEach(item => {
+  filteredCash.forEach(item => {
     const tr = document.createElement('tr');
     tbody.appendChild(tr);
     const td1 = document.createElement('td');
