@@ -106,6 +106,20 @@
 
   </div>
 
+  <!-- botões para atualizar se irá filtra 1 ano, 3 meses, 6 meses , histórico. histórico é o padrão -->
+  <div class="row" style="margin-top: 1em;margin-bottom: 1em;">
+    <div class="col-sm">
+      <div class="btn-group" role="group" aria-label="Filtros">
+        <button type="button" class="btn btn-primary" onclick="reopenCurrentUrlUsingMonths(0)">Histórico</button>
+        <button type="button" class="btn btn-primary" onclick="reopenCurrentUrlUsingMonths(36)">3 anos</button>
+        <button type="button" class="btn btn-primary" onclick="reopenCurrentUrlUsingMonths(24)">2 anos</button>
+        <button type="button" class="btn btn-primary" onclick="reopenCurrentUrlUsingMonths(12)">1 ano</button>
+        <button type="button" class="btn btn-primary" onclick="reopenCurrentUrlUsingMonths(6)">6 meses</button>
+        <button type="button" class="btn btn-primary" onclick="reopenCurrentUrlUsingMonths(3)">3 meses</button>
+      </div>
+    </div>
+  </div>
+
   <canvas id="exemploGrafico" style="max-height:18em;"></canvas>
 
   <p style="margin-top: 1em;">Observação: você pode desativar linhas do gráfico clicando nos rótulos acima do gráfico.</p>
@@ -136,11 +150,11 @@ Chart.register(pluginTrendlineLinear);
 
 //receber string do parametro de url data
 const urlParams = new URLSearchParams(window.location.search);
-const urlDataBase64 = urlParams.get('data');
 //converter urlDataBase64 de base64 para string
+const urlDataBase64 = urlParams.get('data');
+const monthsToFilter = urlParams.get('months');
 const urlDataString = atob(urlDataBase64);
 //printar
-console.log(urlDataString);
 
 let cash;
 
@@ -155,6 +169,33 @@ try {
     {date:'3/24',cash:0,balance:0,predictedCash:0,enej:0,inflows:0,outflows:0},
     {date:'4/24',cash:0,balance:0,predictedCash:0,enej:0,inflows:0,outflows:0},
   ];
+}
+
+function replaceUndefinedOrNullByZero(cash,atribute){
+  return cash.map(item => {
+    if(item[atribute] === undefined || item[atribute] === null){
+      item[atribute] = 0;
+    }
+    return item;
+  });
+}
+
+cash = replaceUndefinedOrNullByZero(cash,'enej');
+
+
+function getDataLastMonths(data,numberOfMonths){
+  return data.slice(-numberOfMonths);
+}
+
+if(monthsToFilter){
+  cash = getDataLastMonths(cash,monthsToFilter);
+}
+console.log(cash);
+
+async function reopenCurrentUrlUsingMonths(months){
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlDataBase64 = urlParams.get('data');
+  window.open(`${window.location.origin}${window.location.pathname}?data=${urlDataBase64}&months=${months}`, '_self');
 }
 
 const data = {
